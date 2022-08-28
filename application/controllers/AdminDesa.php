@@ -27,13 +27,17 @@ class AdminDesa extends CI_Controller {
     // Create =======================================================================================================
         // Penduduk
             public function tambahdatapenduduk(){
-                $data['tb_desa'] = $this->M_App->tampil_data('tb_desa','id_desa','ASC')->result();
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('id_desa' => $id_desa);
+                $data['tb_desa'] = $this->M_App->tampil_data_where('tb_desa', $where, 'id_desa','ASC')->result();
                 $this->load->view('AdminDesa/Page/Penduduk/tambah', $data);
                 $this->load->view('AdminDesa/Layout/footer');
             }
         // Warga
             public function tambahdataakunwarga(){
-                $data['tb_penduduk'] = $this->M_App->tampil_data('tb_penduduk','nik','ASC')->result();
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('id_desa' => $id_desa);
+                $data['tb_penduduk'] = $this->M_App->tampil_data_where('tb_penduduk', $where,'nik','ASC')->result();
                 $data['tb_akunwarga'] = $this->M_App->tampil_data('tb_akunwarga','id_akun_warga','ASC')->result();
                 $this->load->view('AdminDesa/Page/Akunwarga/tambah',$data);
                 $this->load->view('AdminDesa/Layout/footer');
@@ -372,13 +376,17 @@ class AdminDesa extends CI_Controller {
     // Read =========================================================================================================
         // Penduduk
             public function datapenduduk(){
-                $data['tb_penduduk'] = $this->M_App->tampil_data_join('tb_penduduk', 'tb_desa', 'tb_desa.id_desa = tb_penduduk.id_desa', 'id_penduduk','ASC')->result();
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('tb_penduduk.id_desa' => $id_desa);
+                $data['tb_penduduk'] = $this->M_App->tampil_data_join_where('tb_penduduk', 'tb_desa', 'tb_desa.id_desa = tb_penduduk.id_desa', $where, 'id_penduduk','ASC')->result();
                 $this->load->view('AdminDesa/Page/Penduduk/data', $data);
                 $this->load->view('AdminDesa/Layout/footer');
             }
         // Akun Warga
             public function akunwarga(){
-                $data['tb_akunwarga'] = $this->M_App->tampil_data_join('tb_akunwarga','tb_penduduk','tb_penduduk.id_penduduk = tb_akunwarga.id_penduduk', 'id_akun_warga','ASC')->result();
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('tb_penduduk.id_desa' => $id_desa);
+                $data['tb_akunwarga'] = $this->M_App->tampil_data_join_where('tb_akunwarga','tb_penduduk','tb_penduduk.id_penduduk = tb_akunwarga.id_penduduk', $where,'id_akun_warga','ASC')->result();
                 $this->load->view('AdminDesa/Page/Akunwarga/data', $data);
                 $this->load->view('AdminDesa/Layout/footer');
             }
@@ -392,15 +400,19 @@ class AdminDesa extends CI_Controller {
         // Pengajuan Dokumen
             public function pengajuan(){
                 // $data['tb_desa'] = $this->M_App->tampil_data('tb_desa','id_desa','ASC')->result();
-                $data['tb_pengajuan'] = $this->M_App->tampil_data_join3('tb_pengajuan', 'tb_penduduk', 'tb_penduduk.id_penduduk = tb_pengajuan.id_penduduk', 'tb_desa', 'tb_desa.id_desa = tb_pengajuan.id_desa', 'tb_jenis_dokumen', 'tb_jenis_dokumen.id_jenis = tb_pengajuan.id_jenis', 'id_pengajuan','ASC')->result();
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('tb_penduduk.id_desa' => $id_desa);
+                $data['tb_pengajuan'] = $this->M_App->tampil_data_join3_where('tb_pengajuan', 'tb_penduduk', 'tb_penduduk.id_penduduk = tb_pengajuan.id_penduduk', 'tb_desa', 'tb_desa.id_desa = tb_pengajuan.id_desa', 'tb_jenis_dokumen', 'tb_jenis_dokumen.id_jenis = tb_pengajuan.id_jenis', $where,'id_pengajuan','ASC')->result();
                 $this->load->view('AdminDesa/Page/Pengajuan/data', $data);
                 $this->load->view('AdminDesa/Layout/footer');
             }
         // Arsip
             public function arsipdokumen(){
-                $data['tb_arsip'] = $this->M_App->tampil_data_join3('tb_arsip', 'tb_desa', 'tb_desa.id_desa = tb_arsip.id_desa', 
+                $id_desa = $this->session->userdata("id_desa");
+                $where = array('tb_penduduk.id_desa' => $id_desa);
+                $data['tb_arsip'] = $this->M_App->tampil_data_join3_where('tb_arsip', 'tb_desa', 'tb_desa.id_desa = tb_arsip.id_desa', 
                                                                                 'tb_penduduk', 'tb_penduduk.id_penduduk = tb_arsip.id_penduduk',
-                                                                                'tb_jenis_dokumen', 'tb_jenis_dokumen.id_jenis = tb_arsip.id_jenis_dokumen', 'id_arsip_dokumen','ASC')->result();
+                                                                                'tb_jenis_dokumen', 'tb_jenis_dokumen.id_jenis = tb_arsip.id_jenis_dokumen', $where,'id_arsip_dokumen','ASC')->result();
                 $this->load->view('AdminDesa/Page/Arsip/data', $data);
                 $this->load->view('AdminDesa/Layout/footer');
             }

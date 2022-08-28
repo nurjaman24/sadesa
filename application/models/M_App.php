@@ -20,6 +20,13 @@
                 $this->db->order_by($field, $order);
                 return $this->db->get();
             }
+            public function tampil_data_where($nm_table,$kondisi,$field,$order){
+                $this->db->select('*');
+                $this->db->from($nm_table);
+                $this->db->where($kondisi);
+                $this->db->order_by($field, $order);
+                return $this->db->get();
+            }
             // Inner Join
             public function tampil_data_join($nm_tabel, $nm_tabel_join, $on,$field,$order){
                 $this->db->select('*');
@@ -28,6 +35,14 @@
                 $this->db->order_by($field, $order);
                 return $query = $this->db->get();
                 
+            }
+            public function tampil_data_join_where($nm_tabel, $nm_tabel_join, $on,$kondisi,$field,$order){
+                $this->db->select('*');
+                $this->db->from($nm_tabel);
+                $this->db->join($nm_tabel_join, $on);
+                $this->db->where($kondisi);
+                $this->db->order_by($field, $order);
+                return $query = $this->db->get();
             }
             public function tampil_data_join2($nm_tabel, $nm_tabel_join, $on, $nm_tabel_join2, $on2,$field,$order){
                 $this->db->select('*');
@@ -44,6 +59,17 @@
                 $this->db->join($nm_tabel_join, $on);
                 $this->db->join($nm_tabel_join2, $on2);
                 $this->db->join($nm_tabel_join3, $on3);
+                $this->db->order_by($field, $order);
+                return $query = $this->db->get();
+                
+            }
+            public function tampil_data_join3_where($nm_tabel, $nm_tabel_join, $on, $nm_tabel_join2, $on2, $nm_tabel_join3, $on3,$kondisi,$field,$order){
+                $this->db->select('*');
+                $this->db->from($nm_tabel);
+                $this->db->join($nm_tabel_join, $on);
+                $this->db->join($nm_tabel_join2, $on2);
+                $this->db->join($nm_tabel_join3, $on3);
+                $this->db->where($kondisi);
                 $this->db->order_by($field, $order);
                 return $query = $this->db->get();
                 
