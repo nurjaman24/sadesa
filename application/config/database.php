@@ -76,15 +76,15 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	// Hosting Meniti
-	// 'hostname' => 'satudesa.tech',
-	// 'username' => 'u7753801_nurjaman',
-	// 'password' => 'Nurjaman24',
-	// 'database' => 'u7753801_sadesasukaasih',
+	'hostname' => 'meniti.id',
+	'username' => 'u7753801_nurjaman',
+	'password' => 'Nurjaman24',
+	'database' => 'u7753801_sadesa',
 	// Localhost
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'db_sadesa',
+	// 'hostname' => 'localhost',
+	// 'username' => 'root',
+	// 'password' => '',
+	// 'database' => 'db_sadesa',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
